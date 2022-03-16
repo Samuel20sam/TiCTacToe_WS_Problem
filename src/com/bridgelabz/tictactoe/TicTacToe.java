@@ -1,6 +1,7 @@
 package com.bridgelabz.tictactoe;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class TicTacToe {
     // Name-constants to represent the seeds and cell contents
@@ -12,7 +13,7 @@ public class TicTacToe {
 
     public static void main(String[] args) {
         initGame(); // Initialize the game-board and current status and plays the game once
-//        selection();
+        selection();
     }
     public static void initGame() //Initialize the game-board contents and the current states
     {
@@ -23,15 +24,15 @@ public class TicTacToe {
         }
         System.out.println(Arrays.deepToString(board));
     }
-//    public static void selection() {
-//        System.out.println("Would you like to choose 'x' or 'o' to play");
-//        Scanner input = new Scanner(System.in);
-//        String playerChoice = input.next();
-//        if (playerChoice.equals("x"))
-//        {
-//            String compChoice = String.valueOf('o');
-//        } else {
-//            String compChoice = String.valueOf('x');
-//        }
-//    }
+    public static void selection() {
+        System.out.println("Would you like to choose 'x' or 'o' to play");
+        Scanner input = new Scanner(System.in);
+        String playerChoice = input.next();
+        if (playerChoice.equals("x"))
+        {
+            String compChoice = String.valueOf('o');
+        } else {
+            String compChoice = String.valueOf('x');
+        }
+    }
 }
