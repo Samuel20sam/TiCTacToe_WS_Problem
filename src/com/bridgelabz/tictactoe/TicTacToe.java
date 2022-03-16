@@ -1,28 +1,24 @@
 package com.bridgelabz.tictactoe;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TicTacToe {
-    // Name-constants to represent the seeds and cell contents
-    public static final int EMPTY = 0;
-
     // The game board and the game status
-    public static final int ROWS = 3, COLS = 3; // number of rows and columns
-    public static int[][] board = new int[ROWS][COLS]; // game board in 2D array containing (EMPTY, CROSS, NOUGHT)
+        public static int size = 10;
+        public static char[] board = new char[size];
 
     public static void main(String[] args) {
-        initGame(); // Initialize the game-board and current status and plays the game once
+        initGame();
         selection();
+        printBoard();
     }
     public static void initGame() //Initialize the game-board contents and the current states
     {
-        for (int row = 1; row < ROWS; ++row) {
-            for (int col = 1; col < COLS; ++col) {
-                board[row][col] = EMPTY;  // all cells empty
-            }
+        for (int row = 1; row < size; ++row)
+        {
+                board[row]= ' ';  // all cells empty
         }
-        System.out.println(Arrays.deepToString(board));
+        System.out.println(board[2]);
     }
     public static void selection() {
         System.out.println("Would you like to choose 'x' or 'o' to play");
@@ -34,5 +30,15 @@ public class TicTacToe {
         } else {
             String compChoice = String.valueOf('x');
         }
+    }
+    private static void printBoard()
+    {
+        System.out.println("-------");
+        System.out.println("|" +board[1] + "|" +  board[2] + "|" +  board[3] +"|");
+        System.out.println("-------");
+        System.out.println("|" +board[4] + "|" +  board[5] + "|" +  board[6] +"|");
+        System.out.println("-------");
+        System.out.println("|" +board[7] + "|" +  board[8] + "|" +  board[9] +"|");
+        System.out.println("-------");
     }
 }
