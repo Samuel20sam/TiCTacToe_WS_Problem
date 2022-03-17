@@ -1,12 +1,14 @@
 package com.bridgelabz.tictactoe;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
     // The game board and the game status
     public static char playerChoice;
     public static char compChoice;
-    public static int userInput;
+    public static int userPlaceSelect;
+    public static int compPlaceSelect;
     public static int size = 10;
     public static char[] board = new char[size];
 
@@ -14,7 +16,7 @@ public class TicTacToe {
         initGame();
         selection();
         printBoard();
-        playerTurn();
+        toss();
     }
     public static void initGame() {
         for (int row = 1; row < size; ++row)
@@ -45,22 +47,46 @@ public class TicTacToe {
         System.out.println("|" +board[7] + "|" +  board[8] + "|" +  board[9] +"|");
         System.out.println("-------");
     }
+    private static void toss(){
+        System.out.println("Calling for toss, player is '0' and computer '1'");
+        Random rand = new Random();
+        int whoPlays = rand.nextInt(2);
+        System.out.println("Toss is " +whoPlays);
+        if (whoPlays == 0) {
+            playerTurn();
+        } else {
+            computerTurn();
+        }
+    }
+    private static void computerTurn() {
+        Random rand = new Random();
+        while (true) {
+            compPlaceSelect = rand.nextInt(9) + 1;
+            System.out.println("Computer chose " + compPlaceSelect);
+            if (indexCheck(board, compPlaceSelect)) {
+                break;
+            } else {
+                System.out.println(userPlaceSelect + " is not a valid move.");
+            }
+            makingMove(board, compPlaceSelect, compChoice);
+        }
+    }
     private static void playerTurn() {
         while (true) {
             System.out.println("Where would you like to play? (1-9)");
             Scanner input = new Scanner(System.in);
-            userInput = input.nextInt();
-            if (indexCheck(board, userInput)) {
+            userPlaceSelect = input.nextInt();
+            if (indexCheck(board, userPlaceSelect)) {
                 break;
             } else {
-                System.out.println(userInput + " is not a valid move.");
+                System.out.println(userPlaceSelect + " is not a valid move.");
             }
         }
-        makingMove(board, userInput, playerChoice);
+        makingMove(board, userPlaceSelect, playerChoice);
     }
-    private static boolean indexCheck(char[] board, int userInput)
+    private static boolean indexCheck(char[] board, int userPlaceSelect)
     {
-        return switch (userInput) {
+        return switch (userPlaceSelect) {
             case 1 -> (board[1] == ' ');
             case 2 -> (board[2] == ' ');
             case 3 -> (board[3] == ' ');
@@ -73,9 +99,9 @@ public class TicTacToe {
             default -> false;
         };
     }
-    private static void makingMove(char[] board, int userInput, char playerChoice)
+    private static void makingMove(char[] board, int userPlaceSelect, char playerChoice)
     {
-        switch (userInput) {
+        switch (userPlaceSelect) {
             case 1 -> board[1] = playerChoice;
             case 2 -> board[2] = playerChoice;
             case 3 -> board[3] = playerChoice;
