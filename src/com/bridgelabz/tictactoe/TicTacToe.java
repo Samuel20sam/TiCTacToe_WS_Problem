@@ -66,7 +66,7 @@ public class TicTacToe {
             if (indexCheck(board, compPlaceSelect)) {
                 break;
             } else {
-                System.out.println(userPlaceSelect + " is not a valid move.");
+                System.out.println("Hello computer " +compPlaceSelect + " is not a valid move.");
             }
             makingMove(board, compPlaceSelect, compChoice);
         }
@@ -79,7 +79,7 @@ public class TicTacToe {
             if (indexCheck(board, userPlaceSelect)) {
                 break;
             } else {
-                System.out.println(userPlaceSelect + " is not a valid move.");
+                System.out.println("Hello player " +userPlaceSelect + " is not a valid move.");
             }
         }
         makingMove(board, userPlaceSelect, playerChoice);
