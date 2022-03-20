@@ -14,9 +14,10 @@ public class TicTacToe {
     public static char[] board = new char[size];
 
     public static void initGame() {
+        System.out.println();
         for (int index = 1; index < size; ++index) {
             board[index] = ' ';  // all cells empty
-            System.out.println("\nValue of index " + index + " is " + board[index]);
+            System.out.println("Value of index " + index + " is " + board[index]);
         }
     }
 
@@ -57,7 +58,9 @@ public class TicTacToe {
     }
 
     public static boolean indexCheck(char[] board, int userPlaceSelect) {
-        return (board[userPlaceSelect] == ' ');
+        boolean result = (board[userPlaceSelect] == ' ');
+        System.out.println("Result of boolean check is: " +result);
+        return result;
     }
 
     public static void makingMove(char[] board, int userPlaceSelect, char playerChoice) {
@@ -70,6 +73,8 @@ public class TicTacToe {
                 (board[4] == board[5] && board[5] == board[6]) ||
                 (board[7] == board[8] && board[8] == board[9]))
         {
+            System.out.println("CompChoice in first if loop of evaluate is " +compChoice);
+            System.out.println("playerChoice in first if loop of evaluate is " +playerChoice);
             if (board[1] == compChoice || board[4] == compChoice || board[7] == compChoice) {
                 return +10;
             } else if (board[1] == playerChoice || board[4] == playerChoice || board[7] == playerChoice) {
@@ -80,6 +85,8 @@ public class TicTacToe {
                 (board[2] == board[5] && board[5] == board[8]) ||
                 (board[3] == board[6] && board[6] == board[9]))
         {
+            System.out.println("CompChoice in second if loop of evaluate is " +compChoice);
+            System.out.println("playerChoice in second if loop of evaluate is " +playerChoice);
             if (board[1] == compChoice || board[2] == compChoice || board[3] == compChoice) {
                 return +10;
             } else if (board[1] == playerChoice || board[2] == playerChoice || board[3] == playerChoice) {
@@ -88,6 +95,8 @@ public class TicTacToe {
         }
         if (board[1] == board[5] && board[5] == board[9])
         {
+            System.out.println("CompChoice in third if loop of evaluate is " +compChoice);
+            System.out.println("playerChoice in third if loop of evaluate is " +playerChoice);
             if (board[1] == compChoice) {
                 return +10;
             } else if (board[1] == playerChoice) {
@@ -96,6 +105,8 @@ public class TicTacToe {
         }
         if (board[7] == board[5] && board[5] == board[3])
         {
+            System.out.println("CompChoice in fourth if loop of evaluate is " +compChoice);
+            System.out.println("playerChoice in fourth if loop of evaluate is " +playerChoice);
             if (board[7] == compChoice) {
                 return +10;
             } else if (board[7] == playerChoice) {
@@ -108,7 +119,10 @@ public class TicTacToe {
     // This is the minimax function. It considers all the possible ways the game can go and returns the value of the board
     public static int minimax(char[] board, int depth, Boolean isMax) {
 
+        int best;
         int score = evaluate(board);
+
+        System.out.println("The returned value in minimax is :" +score);
 
         if (score == 10) // If Maximizer has won the game return their evaluated score
             return score;
@@ -116,16 +130,6 @@ public class TicTacToe {
         if (score == -10) // If Minimizer has won the game return their evaluated score
             return score;
 
-            int index=1;
-            while (index < size)
-            {
-                if (!indexCheck(board, index))
-                    ++index;
-            }
-        if (index == 9)   // If there are no more moves and no winner then it is a tie
-            return 0;
-
-        int best;
         if (isMax) // If this maximizer's move
         {
             best = -1000;
@@ -133,8 +137,11 @@ public class TicTacToe {
         {
             best = 1000;
         }
-        for (index = 1; index < size; ++index) {
-            if (board[index] == ' ') { // Check if cell is empty
+        for (int index = 1; index < size; ++index)
+        {
+            System.out.println("index value in minimax is: " +index);
+            if (board[index] == ' ')
+            { // Check if cell is empty
                 board[index] = compChoice; // Make the move
                 best = Math.max(best, minimax(board, depth + 1, false)); // Call minimax recursively and choose the maximum value
                 board[index] = ' '; // Undo the move
@@ -148,15 +155,19 @@ public class TicTacToe {
 
         for (int index = 0; index < size; index++) // Traverse all cells, evaluate minimax function for all empty cells. And return the cell with optimal value.
         {
+            System.out.println("index in findBestMove is: " +index);
             if (board[index] == ' ') // Check if cell is empty
             {
+                System.out.println("CompChoice in findBestMove is " +compChoice);
                 board[index] = compChoice; // Make the move
                 int moveVal = minimax(board, 0, false); // compute evaluation function for this move.
+                System.out.println("MoveVal is: " +moveVal);
                 board[index] = ' '; // Undo the move
 
                 if (moveVal > bestVal) // If the value of the current move is more than the best value, then update best
                 {
                     compPlaceSelect=index;
+                    System.out.println("compPlaceSelect in findBestMove is: " +compPlaceSelect);
                     bestVal = moveVal;
                 }
             }
@@ -170,12 +181,12 @@ public class TicTacToe {
             findBestMove(board);
             System.out.println("Computer chose " + compPlaceSelect);
 
-            //if (indexCheck(board, compPlaceSelect)) {
+            if (indexCheck(board, compPlaceSelect)) {
                 makingMove(board, compPlaceSelect, compChoice);
-            //} else {
-                //System.out.println("Hello computer " + compPlaceSelect + " is not a valid move.");
-                //findBestMove(board);
-            //}
+            } else {
+                System.out.println("Hello computer " + compPlaceSelect + " is not a valid move.");
+                findBestMove(board);
+            }
         }
         if (currentPlayer == -1)
         {
