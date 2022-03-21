@@ -176,33 +176,6 @@ public class TicTacToe {
         }
     }
 
-    public static void turn() {
-        if (currentPlayer == 1) {
-            System.out.println("\nCurrent player is Computer");
-            findBestMove(board);
-            System.out.println("Computer chose " + compPlaceSelect);
-
-            if (indexCheck(board, compPlaceSelect)) {
-                makingMove(board, compPlaceSelect, compChoice);
-            } else {
-                System.out.println("Hello computer " + compPlaceSelect + " is not a valid move.");
-                findBestMove(board);
-            }
-        }
-        if (currentPlayer == -1) {
-            System.out.println("\nCurrent player is Human");
-            System.out.println("Where would you like to play? (1-9)");
-
-            userPlaceSelect = input.nextInt();
-            if (indexCheck(board, userPlaceSelect)) {
-                makingMove(board, userPlaceSelect, playerChoice);
-            } else {
-                System.out.println("Hello player " + userPlaceSelect + " is not a valid move.");
-                turn();
-            }
-        }
-    }
-
     private static boolean isGameFinished(char[] board) {
 
         if (hasContestantWon(board, playerChoice)) {
@@ -239,6 +212,32 @@ public class TicTacToe {
 
                 (board[1] == symbol && board[5] == symbol && board[9] == symbol) ||
                 (board[3] == symbol && board[5] == symbol && board[7] == symbol);
+    }
+    public static void turn() {
+        if (currentPlayer == 1) {
+            System.out.println("\nCurrent player is Computer");
+            findBestMove(board);
+            System.out.println("Computer chose " + compPlaceSelect);
+
+            if (indexCheck(board, compPlaceSelect)) {
+                makingMove(board, compPlaceSelect, compChoice);
+            } else {
+                System.out.println("Hello computer " + compPlaceSelect + " is not a valid move.");
+                findBestMove(board);
+            }
+        }
+        if (currentPlayer == -1) {
+            System.out.println("\nCurrent player is Human");
+            System.out.println("Where would you like to play? (1-9)");
+
+            userPlaceSelect = input.nextInt();
+            if (indexCheck(board, userPlaceSelect)) {
+                makingMove(board, userPlaceSelect, playerChoice);
+            } else {
+                System.out.println("Hello player " + userPlaceSelect + " is not a valid move.");
+                turn();
+            }
+        }
     }
     public static void game(){
         initGame();
